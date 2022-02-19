@@ -21,10 +21,10 @@ const tsv =
 `
 
 /*
-Create a local array which its index will represent the LA employee and its element will be the amount of days worked
 var totalPayPeriodWorkDays = []; 
-for(var i = 0; i < 140; i++)
+for(var i = 0; i < tsv2arr(tsv).length; i++)
 {
+    if(tsv2arr(tsv).Name !== null)
     totalPayPeriodWorkDays.push(i);
 }
 console.log(totalPayPeriodWorkDays.length);
