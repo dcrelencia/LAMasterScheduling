@@ -22,12 +22,31 @@ const tsv =
 
 /*
 var totalPayPeriodWorkDays = []; 
+//Create a local array which its index will represent the LA employee and its element will be the amount of days worked
 for(var i = 0; i < tsv2arr(tsv).length; i++)
 {
     if(tsv2arr(tsv).Name !== null)
-    totalPayPeriodWorkDays.push(i);
+    totalPayPeriodWorkDays.push(0); //initial work days is 0
 }
 console.log(totalPayPeriodWorkDays.length);
+
+for(var i = 0; i < tsv2arr(tsv).length; i++)
+{
+    if(tsv2arr(tsv)[i].SundayOff === "N" && tsv2arr(tsv)[i].SundayStartTime === 1500)
+    {
+        if(Math.floor(Math.random()*2+1) === 1)
+        {
+            if(totalPayPeriodWorkDays[i] !== 7)
+            {
+                    //adds the amount of days worked if scheduled
+                    totalPayPeriodWorkDays[i] += 1;
+                    console.log((tsv2arr(tsv)[i].Name));
+            }
+        }
+    }
+}
+//represents amount of days work at index 0 who represents worker c
+console.log(totalPayPeriodWorkDays[2]);
 */
 
 const daysOfTheWeek = ["SUNDAY", "MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY"];
