@@ -1,165 +1,328 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
+        crossorigin="anonymous">
+    <title>Daily Flight Schedule</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.2/xlsx.full.min.js"></script>
+</head>
 <body>
-<h2 style="text-align: center;">ORIGINAL LA SCHEDULE PP03</h2>
-<script>
-//https://stackoverflow.com/questions/61328891/how-to-take-a-tsv-file-and-convert-to-json-in-js
-const tsv2arr = (tsv) => {
-  const [headers, ...rows] = tsv .trim () .split ('\n') .map (r => r .split ('\t'))
-  return rows .reduce ((a, r) => [
-    ... a, 
-    Object .assign (... (r .map (
-      (x, i, _, c = x.trim()) => ({[headers [i].trim()]: isNaN(c) ? c : Number(c)})
-    )))
-  ], [])
-}
-const tsv =
-`Rank	Name	PhoneNumber	SundayOff	SundayStartTime	MondayOff	MondayStartTime	TuesdayOff	TuesdayStartTime	WednesdayOff	WednesdayStartTime	ThursdayOff	ThursdayStartTime	FridayOff	FridayStartTime	SaturdayOff	SaturdayStartTime
-1	Worker A	(888)888-888	N	1330		1430	N	1430	N	1500	N	1330	N	1330	N	1330
-2	Worker B	(888)888-889	Y		Y		N	1500	N	1500	N	1430	N	1430	N	1430
-3	Worker C	(888)888-890	N	1500		1430	N	1430	N	1500	N	1500	N	1500	N	1500	
-`
+    <h1 style="text-align:center">L/A Master Scheduling Program</h1>
+    <div class="conatiner mt-5">
+        <div class="row"> 
+            <div class="col-md-3"></div>
+            <div class="col-md-3">
+                <input class="form-control" type="file" id="input" accept=".xls,.xlsx"  >
+            </div>
+            <div class="col-md-2">
+                <button class="btn btn-primary" id="button">View Data</button>
+            </div>
+<div class="col-md-12">
+    <pre id="jsondata"></pre>
+</div>
+        </div>
+    </div>
+</body>
+<footer>
+    <p>Instructions: <br>
+    <p>1.) Upload/Attach the excel file that contains the simplified L/A Schedule schedule format <br>
+    <p>2.) Once the excel file is uploaded/attached, click the "View Data" button <br>
+    </p>
+  </footer>
 
-/*
-var totalPayPeriodWorkDays = []; 
+<script>
+//changes from previous version: effectiveDate = currentDate, rowObject = rowObject
+//https://levelup.gitconnected.com/how-to-convert-excel-file-into-json-object-by-using-javascript-9e95532d47c5
+let selectedFile;
+console.log(window.XLSX);
+document.getElementById('input').addEventListener("change", (event) => {
+    selectedFile = event.target.files[0];
+})
+
+let data=[{
+    "name":"test",
+    "data":"scd",
+    "abc":"sdef"
+}]
+
+const daysOfTheWeek = [
+    'SUNDAY',
+    'MONDAY',
+    'TUESDAY',
+    'WEDNESDAY',
+    'THURSDAY',
+    'FRIDAY',
+    'SATURDAY'
+];
+var counter = 0;
+var day1, day2, day3, day4, day5, day6, day7, day8, day9, day10, day11, day12, day13, day14;
+
+function ExcelDateToJSDate(date) {
+  return new Date(Math.round((date - 25569)*86400*1000));
+}
+
+document.getElementById('button').addEventListener("click", () => {
+    XLSX.utils.json_to_sheet(data, 'out.xlsx');
+    if(selectedFile){
+        let fileReader = new FileReader();
+        fileReader.readAsBinaryString(selectedFile);
+        fileReader.onload = (event)=>{
+         let data = event.target.result;
+         //https://stackoverflow.com/questions/62770664/date-format-changing-when-converting-xlsx-to-json
+         let workbook = XLSX.read(data, { type: 'binary' , cellDates: true }); //XLSX.read(data,{type:"binary"}); -> Have to use w/ ExcelDateToJSDate https://stackoverflow.com/questions/16229494/converting-excel-date-serial-number-to-date-using-javascript/67130235#67130235
+         console.log(workbook);
+         workbook.SheetNames.forEach(sheet => {
+            let rowObject = XLSX.utils.sheet_to_row_object_array(workbook.Sheets[sheet]);
+
+document.write('Notes:', '<br>');
+document.write(
+    'Copy the desired data below and paste the data in Excel. The data will automatically split into different cells.',
+    '<br>',
+    '<br>'
+);
+document.write(
+    '<table width="100%" border-collapse="collapse">',
+    '<tr>',
+    '<td text-align="100px">',
+    'Name',
+    '</td>',
+    '<td width="100px">',
+    'Sun',
+    '</td>',
+    '<td width="100px">',
+    'Mon',
+    '</td>',
+    '<td width="100px">',
+    'Tue',
+    '</td>',
+    '<td width="100px">',
+    'Wed',
+    '</td>',
+    '<td width="100px">',
+    'Thur',
+    '</td>',
+    '<td width="100px">',
+    'Fri',
+    '</td>',
+    '<td width="100px">',
+    'Sat',
+    '</td>',
+    '<td width="100px">',
+    'Sun',
+    '</td>',
+    '<td width="100px">',
+    'Mon',
+    '</td>',
+    '<td width="100px">',
+    'Tue',
+    '</td>',
+    '<td width="100px">',
+    'Wed',
+    '</td>',
+    '<td width="100px">',
+    'Thur',
+    '</td>',
+    '<td width="100px">',
+    'Fri',
+    '</td>',
+    '<td width="100px">',
+    'Sat',
+    '</td>',
+    '</tr>',
+    '</table>'
+);
+
+var totalPayPeriodWorkDays = [];
 //Create a local array which its index will represent the LA employee and its element will be the amount of days worked
-for(var i = 0; i < tsv2arr(tsv).length; i++)
-{
-    if(tsv2arr(tsv).Name !== null)
-    totalPayPeriodWorkDays.push(0); //initial work days is 0
+for (var i = 0; i < rowObject.length; i++) {
+    if (rowObject.Name !== null) totalPayPeriodWorkDays.push(0); //initial work days is 0
 }
 console.log(totalPayPeriodWorkDays.length);
 
-for(var i = 0; i < tsv2arr(tsv).length; i++)
-{
-    if(tsv2arr(tsv)[i].SundayOff === "N" && tsv2arr(tsv)[i].SundayStartTime === 1500)
-    {
-        if(Math.floor(Math.random()*2+1) === 1)
-        {
-            if(totalPayPeriodWorkDays[i] !== 7)
-            {
+for (var i = 0; i < rowObject.length; i++) {
+    document.write(
+        '<table width="100%" border-collapse="collapse">',
+        '<tr>',
+        '<td width="100px">',
+        rowObject[i].Name,
+        '</td>'
+    );
+    do {
+        if (rowObject[i].SundayOff === 'N' /*&& rowObject[i].SundayStartTime === 1500*/) {
+            if (Math.floor(Math.random() * 2 + 1) === 1) {
+                if (totalPayPeriodWorkDays[i] !== 7) {
                     //adds the amount of days worked if scheduled
                     totalPayPeriodWorkDays[i] += 1;
-                    console.log((tsv2arr(tsv)[i].Name));
-            }
+                    day1 = rowObject[i].SundayStartTime;
+                    
+                } else day1 = " ";
+            } else day1 = " ";
+        } else day1 = " ";
+        if (rowObject[i].MondayOff === 'N') {
+            if (Math.floor(Math.random() * 2 + 1) === 1) {
+                if (totalPayPeriodWorkDays[i] !== 7) {
+                    //adds the amount of days worked if scheduled
+                    totalPayPeriodWorkDays[i] += 1;
+                    day2 = rowObject[i].MondayStartTime;
+                    
+                } else day2 = " ";
+            } else day2 = " ";
+        } else day2 = " ";
+        if (rowObject[i].TuesdayOff === 'N') {
+            if (Math.floor(Math.random() * 2 + 1) === 1) {
+                if (totalPayPeriodWorkDays[i] !== 7) {
+                    //adds the amount of days worked if scheduled
+                    totalPayPeriodWorkDays[i] += 1;
+                   day3 = rowObject[i].TuesdayStartTime;
+                    
+                } else day3 = " ";
+            } else day3 = " ";
+        } else day3 = " ";
+        if (rowObject[i].WednesdayOff === 'N') {
+            if (Math.floor(Math.random() * 2 + 1) === 1) {
+                if (totalPayPeriodWorkDays[i] !== 7) {
+                    //adds the amount of days worked if scheduled
+                    totalPayPeriodWorkDays[i] += 1;
+                    day4 = rowObject[i].WednesdayStartTime;
+                    
+                } else day4 = " ";
+            } else day4 = " ";
+        } else day4 = " ";
+        if (rowObject[i].ThursdayOff === 'N') {
+            if (Math.floor(Math.random() * 2 + 1) === 1) {
+                if (totalPayPeriodWorkDays[i] !== 7) {
+                    //adds the amount of days worked if scheduled
+                    totalPayPeriodWorkDays[i] += 1;
+                    day5 = rowObject[i].ThursdayStartTime;
+                    
+                } else day5 = " ";
+            } else day5 = " ";
+        } else day5 = " ";
+
+        if (rowObject[i].FridayOff === 'N') {
+            if (Math.floor(Math.random() * 2 + 1) === 1) {
+                if (totalPayPeriodWorkDays[i] !== 7) {
+                    //adds the amount of days worked if scheduled
+                    totalPayPeriodWorkDays[i] += 1;
+                    day6 = rowObject[i].FridayStartTime;
+                    
+                } else day6 = " ";
+            } else day6 = " ";
+        } else day6 = " ";
+        if (rowObject[i].SaturdayOff === 'N') {
+            if (Math.floor(Math.random() * 2 + 1) === 1) {
+                if (totalPayPeriodWorkDays[i] !== 7) {
+                    //adds the amount of days worked if scheduled
+                    totalPayPeriodWorkDays[i] += 1;
+                    day7 = rowObject[i].SaturdayStartTime;
+                    
+                } else day7 = " ";
+            } else day7 = " ";
+        } else day7 = " ";
+        
+        if(totalPayPeriodWorkDays[i] !== 3){
+           totalPayPeriodWorkDays[i] = 0; 
+        }
+    } while (totalPayPeriodWorkDays[i] < 3);
+    do{
+        if (rowObject[i].SundayOff === 'N' /*&& rowObject[i].SundayStartTime === 1500*/) {
+            if (Math.floor(Math.random() * 2 + 1) === 1) {
+                if (totalPayPeriodWorkDays[i] !== 7) {
+                    //adds the amount of days worked if scheduled
+                    totalPayPeriodWorkDays[i] += 1;
+                    day8 = rowObject[i].SundayStartTime;
+
+                } else day8 = " ";
+            } else day8 = " ";
+        } else day8 = " ";
+        if (rowObject[i].MondayOff === 'N') {
+            
+            if (Math.floor(Math.random() * 2 + 1) === 1) {
+                if (totalPayPeriodWorkDays[i] !== 7) {
+                    //adds the amount of days worked if scheduled
+                    totalPayPeriodWorkDays[i] += 1;
+                    day9 = rowObject[i].MondayStartTime;
+                } else day9 = " ";
+            } else day9 = " ";
+        } else day9 = " ";
+        if (rowObject[i].TuesdayOff === 'N') {
+            if (Math.floor(Math.random() * 2 + 1) === 1) {
+                if (totalPayPeriodWorkDays[i] !== 7) {
+                    //adds the amount of days worked if scheduled
+                    totalPayPeriodWorkDays[i] += 1;
+                    day10 = rowObject[i].TuesdayStartTime;
+                    
+                } else day10 = " ";
+            } else day10 = " ";
+        } else day10 = " ";
+        if (rowObject[i].WednesdayOff === 'N') {
+            if (Math.floor(Math.random() * 2 + 1) === 1) {
+                if (totalPayPeriodWorkDays[i] !== 7) {
+                    //adds the amount of days worked if scheduled
+                    totalPayPeriodWorkDays[i] += 1;
+                    day11 = rowObject[i].WednesdayStartTime;
+                    
+                } else day11 = " ";
+            } else day11 = " ";
+        } else day11 = " ";
+        if (rowObject[i].ThursdayOff === 'N') {
+            if (Math.floor(Math.random() * 2 + 1) === 1) {
+                if (totalPayPeriodWorkDays[i] !== 7) {
+                    //adds the amount of days worked if scheduled
+                    totalPayPeriodWorkDays[i] += 1;
+                    day12 = rowObject[i].ThursdayStartTime;
+                    
+                } else day12 = " ";
+            } else day12 = " ";
+        } else day12 = " ";
+
+        if (rowObject[i].FridayOff === 'N') {
+            if (Math.floor(Math.random() * 2 + 1) === 1) {
+                if (totalPayPeriodWorkDays[i] !== 7) {
+                    //adds the amount of days worked if scheduled
+                    totalPayPeriodWorkDays[i] += 1;
+                    day13 = rowObject[i].FridayStartTime;
+                    
+                } else day13 = " ";
+            } else day13 = " ";
+        } else day13 = " ";
+        if (rowObject[i].SaturdayOff === 'N') {
+            if (Math.floor(Math.random() * 2 + 1) === 1) {
+                if (totalPayPeriodWorkDays[i] !== 7) {
+                    //adds the amount of days worked if scheduled
+                    totalPayPeriodWorkDays[i] += 1;
+                    day14 = rowObject[i].SaturdayStartTime;
+                    
+                } else day14 = " ";
+            } else day14 = " ";
+        } else day14 = " ";
+        if(totalPayPeriodWorkDays[i] !== 7){
+           totalPayPeriodWorkDays[i] = 3; 
+        }
+    } while (totalPayPeriodWorkDays[i] < 7);
+    document.write('<td width="100px">', day1, '</td>');
+    document.write('<td width="100px">', day2, '</td>');
+    document.write('<td width="100px">', day3, '</td>');
+    document.write('<td width="100px">', day4, '</td>');
+    document.write('<td width="100px">', day5, '</td>');
+    document.write('<td width="100px">', day6, '</td>');
+    document.write('<td width="100px">', day7, '</td>');
+    document.write('<td width="100px">', day8, '</td>');
+    document.write('<td width="100px">', day9, '</td>');
+    document.write('<td width="100px">', day10, '</td>');
+    document.write('<td width="100px">', day11, '</td>');
+    document.write('<td width="100px">', day12, '</td>');
+    document.write('<td width="100px">', day13, '</td>');
+    document.write('<td width="100px">', day14, '</td>');
+}
+
+              document.getElementById("jsondata").innerHTML = JSON.stringify(rowObject,undefined,4)
+         });
         }
     }
-}
-//represents amount of days work at index 0 who represents worker c
-console.log(totalPayPeriodWorkDays[2]);
-*/
-
-const daysOfTheWeek = ["SUNDAY", "MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY"];
-var counter = 0;
-document.write("Notes:",  "<br>");
-document.write("Copy the desired data below and paste the data in Excel. The data will automatically split into different cells.", "<br>", "<br>");
-document.write(
-                "<table width=\"100%\" border-collapse=\"collapse\">", "<tr>",
-                "<td text-align=\"100px\">", "Name", "</td>",
-                "<td width=\"100px\">", "Sun", "</td>",
-                "<td width=\"100px\">", "Mon", "</td>",
-                "<td width=\"100px\">", "Tue", "</td>",
-                "<td width=\"100px\">", "Wed", "</td>",
-                "<td width=\"100px\">", "Thur", "</td>",
-                "<td width=\"100px\">", "Fri", "</td>",
-                "<td width=\"100px\">", "Sat", "</td>",
-                "</tr>", "</table>"
-            );   
-                
-              for(var i = 0; i < tsv2arr(tsv).length; i++){
-                counter = 0;
-                document.write(
-                    "<table width=\"100%\" border-collapse=\"collapse\">", "<tr>",                                 
-                    "<td width=\"100px\">", tsv2arr(tsv)[i].Name, "</td>"
-                );
-                if(tsv2arr(tsv)[i].SundayOff === "N" && counter !== 4){
-                    if(Math.floor(Math.random()*2+1) === 1){
-                        counter++;
-                        document.write( "<td width=\"100px\">", tsv2arr(tsv)[i].SundayStartTime, "</td>",);
-                    }else{
-                        document.write("<td width=\"100px\">", " ", "</td>", );
-                    }
-                }else if(tsv2arr(tsv)[i].SundayOff === "Y"){
-                    document.write("<td width=\"100px\">", " ", "</td>",);
-                }
-
-                if(tsv2arr(tsv)[i].MondayOff === "N" && counter !== 4){
-                    if(Math.floor(Math.random()*2+1) === 1){
-                        counter++;
-                        document.write("<td width=\"100px\">", tsv2arr(tsv)[i].MondayStartTime, "</td>", );
-                    }else{
-                        document.write("<td width=\"100px\">", " ", "</td>", );
-                    }
-                }else if(tsv2arr(tsv)[i].MondayOff === "Y"){
-                    document.write("<td width=\"100px\">", " ", "</td>",);
-                }
-
-                if(tsv2arr(tsv)[i].TuesdayOff === "N" && counter !== 4){
-                    if(Math.floor(Math.random()*2+1) === 1){
-                        counter++;
-                        document.write("<td width=\"100px\">", tsv2arr(tsv)[i].TuesdayStartTime, "</td>", );
-                    }else{
-                        document.write("<td width=\"100px\">", " ", "</td>", );
-                    }
-                }else if(tsv2arr(tsv)[i].TuesdayOff === "Y"){
-                    document.write("<td width=\"100px\">", " ", "</td>",);
-                }
-
-                if(tsv2arr(tsv)[i].WednesdayOff === "N" && counter !== 4){
-                    if(Math.floor(Math.random()*2+1) === 1){
-                        counter++;
-                        document.write("<td width=\"100px\">", tsv2arr(tsv)[i].WednesdayStartTime, "</td>", );
-                    }else{
-                        document.write("<td width=\"100px\">", " ", "</td>", );
-                    }
-                }else if(tsv2arr(tsv)[i].WednesdayOff === "Y"){
-                    document.write("<td width=\"100px\">", " ", "</td>",);
-                }
-
-                if(tsv2arr(tsv)[i].ThursdayOff === "N" && counter !== 4){
-                    if(Math.floor(Math.random()*2+1) === 1){
-                        counter++;
-                        document.write("<td width=\"100px\">", tsv2arr(tsv)[i].ThursdayStartTime, "</td>", );
-                    }else{
-                        document.write("<td width=\"100px\">", " ", "</td>", );
-                    }
-                }else if(tsv2arr(tsv)[i].ThursdayOff === "Y"){
-                    document.write("<td width=\"100px\">", " ", "</td>",);
-                }
-
-                if(tsv2arr(tsv)[i].FridayOff === "N" && counter !== 4){
-                    if(Math.floor(Math.random()*2+1) === 1){
-                        counter++;
-                        document.write("<td width=\"100px\">", tsv2arr(tsv)[i].FridayStartTime, "</td>", );
-                    }else{
-                        document.write("<td width=\"100px\">", " ", "</td>", );
-                    }
-                }else if(tsv2arr(tsv)[i].FridayOff === "Y"){
-                    document.write("<td width=\"100px\">", " ", "</td>",);
-                }
-
-                if(tsv2arr(tsv)[i].SaturdayOff === "N" && counter !== 4){
-                    if(Math.floor(Math.random()*2+1) === 1){
-                        counter++;
-                        document.write("<td width=\"100px\">", tsv2arr(tsv)[i].SaturdayStartTime, "</td>", );
-                    }else{
-                        document.write("<td width=\"100px\">", " ", "</td>", );
-                    }
-                }else if(tsv2arr(tsv)[i].SaturdayOff === "Y"){
-                    document.write("<td width=\"100px\">", " ", "</td>",);
-                }
-                if(tsv2arr(tsv)[i].SaturdayOff === "N" && counter !== 4){
-                    if(Math.floor(Math.random()*2+1) === 1){
-                        counter++;
-                        document.write("<td width=\"100px\">", tsv2arr(tsv)[i].SaturdayStartTime, "</td>", );
-                    }else{
-                        document.write("<td width=\"100px\">", " ", "</td>", );
-                    }
-                }else if(tsv2arr(tsv)[i].SaturdayOff === "Y"){
-                    document.write("<td width=\"100px\">", " ", "</td>",);
-                }
-                document.write("</tr>", "</table>");
-            }
+});
 </script>
-</body>
 </html>
