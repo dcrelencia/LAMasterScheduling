@@ -10,7 +10,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.2/xlsx.full.min.js"></script>
 </head>
 <body>
-    <h1 style="text-align:center">PPTs and L/As Master Scheduling Program</h1>
+    <h1 style="text-align:center">PPTs and LAs Master Scheduling Program</h1>
     <div class="conatiner mt-5">
         <div class="row"> 
             <div class="col-md-3"></div>
@@ -31,7 +31,8 @@
     <p>1.) Upload/Attach the excel file that contains the simplified L/A Schedule schedule format <br>
     <p>2.) Once the excel file is uploaded/attached, click the "View Data" button <br>
     <p>3.) This program will only accept 4 to 7 day availability <br>
-    <p>4.) 2 to 3 day Availability is work in progress <br>
+    <p>4.) Work in progress: 2-3 day availability, Daily, and Electronic distribution <br>
+    
     </p>
   </footer>
 
@@ -59,7 +60,7 @@ const daysOfTheWeek = [
     'FRIDAY',
     'SATURDAY'
 ];
-    
+
 var secondWeekPass = false;
 var counter = 0;
 var day1, day2, day3, day4, day5, day6, day7, day8, day9, day10, day11, day12, day13, day14;
@@ -303,12 +304,13 @@ for (var i = 0; i < rowObject.length; i++) {
                 } else day14 = " ";
             } else day14 = " ";
         } else day14 = " ";
-        if(totalPayPeriodWorkDays[i] !== 7){
+        
+	if(totalPayPeriodWorkDays[i] !== 7){
            totalPayPeriodWorkDays[i] = 3; 
         }
-        else if(totalPayPeriodWorkDays[i] === 7){
-            secondWeekPass === true;
-        }
+	else if(totalPayPeriodWorkDays[i] === 7){
+		secondWeekPass = true;
+	}
     } while (secondWeekPass === false);
     document.write('<td width="100px">', day1, '</td>');
     document.write('<td width="100px">', day2, '</td>');
