@@ -180,16 +180,17 @@ for (var i = 0; i < rowObject.length; i++) {
             counter2++;
         }
     do {
-        if (rowObject[i].SundayOff === 'N' /*&& rowObject[i].SundayStartTime === 1500*/) {
+        if (rowObject[i].SaturdayOff === 'N') {
             if (Math.floor(Math.random() * 2 + 1) === 1) {
                 if (totalPayPeriodWorkDays[i] !== firstWeek) {
                     //adds the amount of days worked if scheduled
                     totalPayPeriodWorkDays[i] += 1;
-                    day1 = rowObject[i].SundayStartTime;
+                    day7 = rowObject[i].SaturdayStartTime;
                     
-                } else day1 = " ";
-            } else day1 = " ";
-        } else day1 = " ";
+                } else day7 = " ";
+            } else day7 = " ";
+        } else day7 = " ";
+        
         if (rowObject[i].MondayOff === 'N') {
             if (Math.floor(Math.random() * 2 + 1) === 1) {
                 if (totalPayPeriodWorkDays[i] !== firstWeek) {
@@ -200,6 +201,7 @@ for (var i = 0; i < rowObject.length; i++) {
                 } else day2 = " ";
             } else day2 = " ";
         } else day2 = " ";
+        
         if (rowObject[i].TuesdayOff === 'N') {
             if (Math.floor(Math.random() * 2 + 1) === 1) {
                 if (totalPayPeriodWorkDays[i] !== firstWeek) {
@@ -220,6 +222,7 @@ for (var i = 0; i < rowObject.length; i++) {
                 } else day4 = " ";
             } else day4 = " ";
         } else day4 = " ";
+        
         if (rowObject[i].ThursdayOff === 'N') {
             if (Math.floor(Math.random() * 2 + 1) === 1) {
                 if (totalPayPeriodWorkDays[i] !== firstWeek) {
@@ -241,16 +244,17 @@ for (var i = 0; i < rowObject.length; i++) {
                 } else day6 = " ";
             } else day6 = " ";
         } else day6 = " ";
-        if (rowObject[i].SaturdayOff === 'N') {
+        
+        if (rowObject[i].SundayOff === 'N') {
             if (Math.floor(Math.random() * 2 + 1) === 1) {
                 if (totalPayPeriodWorkDays[i] !== firstWeek) {
                     //adds the amount of days worked if scheduled
                     totalPayPeriodWorkDays[i] += 1;
-                    day7 = rowObject[i].SaturdayStartTime;
+                    day1 = rowObject[i].SundayStartTime;
                     
-                } else day7 = " ";
-            } else day7 = " ";
-        } else day7 = " ";
+                } else day1 = " ";
+            } else day1 = " ";
+        } else day1 = " ";
         
         if(totalPayPeriodWorkDays[i] !== firstWeek){
            totalPayPeriodWorkDays[i] = 0; 
@@ -266,16 +270,17 @@ for (var i = 0; i < rowObject.length; i++) {
         console.log(rowObject[i].Name, "First Week: ", totalPayPeriodWorkDays[i])
     totalPayPeriodWorkDays[i] = 0; 
     do{
-        if (rowObject[i].SundayOff === 'N') {
+                if (rowObject[i].SaturdayOff === 'N') {
             if (Math.floor(Math.random() * 2 + 1) === 1) {
                 if (totalPayPeriodWorkDays[i] !== secondWeek) {
                     //adds the amount of days worked if scheduled
                     totalPayPeriodWorkDays[i] += 1;
-                    day8 = rowObject[i].SundayStartTime;
+                    day14 = rowObject[i].SaturdayStartTime;
+                    
+                } else day14 = " ";
+            } else day14 = " ";
+        } else day14 = " ";
 
-                } else day8 = " ";
-            } else day8 = " ";
-        } else day8 = " ";
         if (rowObject[i].MondayOff === 'N') {
             
             if (Math.floor(Math.random() * 2 + 1) === 1) {
@@ -327,16 +332,16 @@ for (var i = 0; i < rowObject.length; i++) {
                 } else day13 = " ";
             } else day13 = " ";
         } else day13 = " ";
-        if (rowObject[i].SaturdayOff === 'N') {
+                if (rowObject[i].SundayOff === 'N') {
             if (Math.floor(Math.random() * 2 + 1) === 1) {
                 if (totalPayPeriodWorkDays[i] !== secondWeek) {
                     //adds the amount of days worked if scheduled
                     totalPayPeriodWorkDays[i] += 1;
-                    day14 = rowObject[i].SaturdayStartTime;
-                    
-                } else day14 = " ";
-            } else day14 = " ";
-        } else day14 = " ";
+                    day8 = rowObject[i].SundayStartTime;
+
+                } else day8 = " ";
+            } else day8 = " ";
+        } else day8 = " ";
         
         if(totalPayPeriodWorkDays[i] !== secondWeek){
            totalPayPeriodWorkDays[i] = 0; 
@@ -375,3 +380,4 @@ for (var i = 0; i < rowObject.length; i++) {
 });
 </script>
 </html>
+
