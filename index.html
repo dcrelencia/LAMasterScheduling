@@ -68,6 +68,8 @@ var counter11 = 0;
 var counter22 = 0;
 var day1, day2, day3, day4, day5, day6, day7, day8, day9, day10, day11, day12, day13, day14;
 
+var total1, total2, total3, total4, total5, total6, total7;
+
 function ExcelDateToJSDate(date) {
   return new Date(Math.round((date - 25569)*86400*1000));
 }
@@ -186,6 +188,7 @@ for (var i = 0; i < rowObject.length; i++) {
                     //adds the amount of days worked if scheduled
                     totalPayPeriodWorkDays[i] += 1;
                     day7 = rowObject[i].SaturdayStartTime;
+                    total7 += 1;
                     
                 } else day7 = " ";
             } else day7 = " ";
@@ -197,6 +200,7 @@ for (var i = 0; i < rowObject.length; i++) {
                     //adds the amount of days worked if scheduled
                     totalPayPeriodWorkDays[i] += 1;
                     day2 = rowObject[i].MondayStartTime;
+                    total2 += 1;
                     
                 } else day2 = " ";
             } else day2 = " ";
@@ -208,6 +212,7 @@ for (var i = 0; i < rowObject.length; i++) {
                     //adds the amount of days worked if scheduled
                     totalPayPeriodWorkDays[i] += 1;
                    day3 = rowObject[i].TuesdayStartTime;
+                   total3 += 1;
                     
                 } else day3 = " ";
             } else day3 = " ";
@@ -218,6 +223,7 @@ for (var i = 0; i < rowObject.length; i++) {
                     //adds the amount of days worked if scheduled
                     totalPayPeriodWorkDays[i] += 1;
                     day4 = rowObject[i].WednesdayStartTime;
+                    total4 += 1;
                     
                 } else day4 = " ";
             } else day4 = " ";
@@ -229,6 +235,7 @@ for (var i = 0; i < rowObject.length; i++) {
                     //adds the amount of days worked if scheduled
                     totalPayPeriodWorkDays[i] += 1;
                     day5 = rowObject[i].ThursdayStartTime;
+                    total5 += 1;
                     
                 } else day5 = " ";
             } else day5 = " ";
@@ -240,6 +247,7 @@ for (var i = 0; i < rowObject.length; i++) {
                     //adds the amount of days worked if scheduled
                     totalPayPeriodWorkDays[i] += 1;
                     day6 = rowObject[i].FridayStartTime;
+                    total6 += 1;
                     
                 } else day6 = " ";
             } else day6 = " ";
@@ -251,12 +259,13 @@ for (var i = 0; i < rowObject.length; i++) {
                     //adds the amount of days worked if scheduled
                     totalPayPeriodWorkDays[i] += 1;
                     day1 = rowObject[i].SundayStartTime;
+                    total1 += 1;
                     
                 } else day1 = " ";
             } else day1 = " ";
         } else day1 = " ";
         
-        if(totalPayPeriodWorkDays[i] !== firstWeek){
+        if(totalPayPeriodWorkDays[i] !== firstWeek && total1 < 50 && total2 < 50 && total3 < 50 && total4 < 50 && total5 < 50 && total6 < 50 && total7 < 50){
            totalPayPeriodWorkDays[i] = 0; 
            day1 = " ";
            day2 = " ";
@@ -265,8 +274,15 @@ for (var i = 0; i < rowObject.length; i++) {
            day5 = " ";
            day6 = " ";
            day7 = " ";
+           total1 = 0;
+           total2 = 0;
+           total3 = 0;
+           total4 = 0;
+           total5 = 0;
+           total6 = 0;
+           total7 = 0;
         }
-    } while (totalPayPeriodWorkDays[i] !== firstWeek);
+    } while (totalPayPeriodWorkDays[i] !== firstWeek && total1 < 50 && total2 < 50 && total3 < 50 && total4 < 50 && total5 < 50 && total6 < 50 && total7 < 50);
         console.log(rowObject[i].Name, "First Week: ", totalPayPeriodWorkDays[i])
     totalPayPeriodWorkDays[i] = 0; 
     do{
@@ -380,4 +396,3 @@ for (var i = 0; i < rowObject.length; i++) {
 });
 </script>
 </html>
-
