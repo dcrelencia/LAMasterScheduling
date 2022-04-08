@@ -38,7 +38,7 @@
 
 <script>
 //changes from previous version: effectiveDate = currentDate, rowObject = rowObject
-//https://levelup.gitconnected.com/how-to-convert-excel-file-into-json-object-by-using-javascript-9e95532d48c5
+//https://levelup.gitconnected.com/how-to-convert-excel-file-into-json-object-by-using-javascript-9e95032d48c5
 let selectedFile;
 console.log(window.XLSX);
 document.getElementById('input').addEventListener("change", (event) => {
@@ -271,7 +271,19 @@ for (var i = 0; i < rowObject.length; i++) {
             } else day1 = " ";
         } else day1 = " ";
         
-        if(totalPayPeriodWorkDays[i] !== firstWeek && total1 < 55 && total2 < 65 && total3 < 65 && total4 < 65 && total5 < 65 && total6 < 65 && total7 < 65){
+                if (rowObject[i].SundayOff === 'N') {
+            if (Math.random() * 100 < 76) {
+                if (totalPayPeriodWorkDays[i] !== firstWeek) {
+                    //adds the amount of days worked if scheduled
+                    totalPayPeriodWorkDays[i] += 1;
+                    day1 = rowObject[i].SundayStartTime;
+                    total1 += 1;
+                    
+                } else day1 = " ";
+            } else day1 = " ";
+        } else day1 = " ";
+        
+        if(totalPayPeriodWorkDays[i] !== firstWeek && total1 < 50 && total2 < 60 && total3 < 60 && total4 < 60 && total5 < 60 && total6 < 60 && total7 < 60){
            totalPayPeriodWorkDays[i] = 0; 
            day1 = " ";
            day2 = " ";
@@ -288,7 +300,7 @@ for (var i = 0; i < rowObject.length; i++) {
            total6 = 0;
            total7 = 0;
         }
-    } while (totalPayPeriodWorkDays[i] !== firstWeek && total1 < 55 && total2 < 65 && total3 < 65 && total4 < 65 && total5 < 65 && total6 < 65 && total7 < 65);
+    } while (totalPayPeriodWorkDays[i] !== firstWeek && total1 < 50 && total2 < 60 && total3 < 60 && total4 < 60 && total5 < 60 && total6 < 60 && total7 < 60);
         console.log(rowObject[i].Name, "First Week: ", totalPayPeriodWorkDays[i])
     totalPayPeriodWorkDays[i] = 0; 
     total1 = 0;
@@ -378,7 +390,19 @@ for (var i = 0; i < rowObject.length; i++) {
             } else day8 = " ";
         } else day8 = " ";
         
-        if(totalPayPeriodWorkDays[i] !== secondWeek && total1 < 55 && total2 < 65 && total3 < 65 && total4 < 65 && total5 < 65 && total6 < 65 && total7 < 65){
+        if (rowObject[i].SundayOff === 'N') {
+            if (Math.random() * 100 < 76) {
+                if (totalPayPeriodWorkDays[i] !== firstWeek) {
+                    //adds the amount of days worked if scheduled
+                    totalPayPeriodWorkDays[i] += 1;
+                    day1 = rowObject[i].SundayStartTime;
+                    total1 += 1;
+                    
+                } else day1 = " ";
+            } else day1 = " ";
+        } else day1 = " ";
+        
+        if(totalPayPeriodWorkDays[i] !== secondWeek && total1 < 50 && total2 < 60 && total3 < 60 && total4 < 60 && total5 < 60 && total6 < 60 && total7 < 60){
            totalPayPeriodWorkDays[i] = 0; 
            day8 = " ";
            day9 = " ";
@@ -395,7 +419,7 @@ for (var i = 0; i < rowObject.length; i++) {
            total6 = 0;
            total7 = 0;
         }
-    } while (totalPayPeriodWorkDays[i] !== secondWeek && total1 < 55 && total2 < 65 && total3 < 65 && total4 < 65 && total5 < 65 && total6 < 65 && total7 < 65);
+    } while (totalPayPeriodWorkDays[i] !== secondWeek && total1 < 50 && total2 < 60 && total3 < 60 && total4 < 60 && total5 < 60 && total6 < 60 && total7 < 60);
     console.log(rowObject[i].Name, "Second Week: ", totalPayPeriodWorkDays[i]);
     
     
