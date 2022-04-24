@@ -184,7 +184,7 @@ for (var i = 0; i < rowObject.length; i++) {
             counter1++;
         }
         else if(firstWeek == 4){
-            secondWeek = 3;
+            secondWeek = 4;
             counter2++;
         }
     do {
@@ -248,7 +248,7 @@ for (var i = 0; i < rowObject.length; i++) {
         } else day5 = " ";
 
         if (rowObject[i].FridayOff === 'N') {
-            if (Math.random() * 100 < 51) {
+            if (Math.random() * 100 < 99) {
                 if (totalPayPeriodWorkDays[i] !== firstWeek) {
                     //adds the amount of days worked if scheduled
                     totalPayPeriodWorkDays[i] += 1;
@@ -260,7 +260,7 @@ for (var i = 0; i < rowObject.length; i++) {
         } else day6 = " ";
         
         if (rowObject[i].SundayOff === 'N') {
-            if (Math.random() * 100 < 51) {
+            if (Math.random() * 100 < 100) {
                 if (totalPayPeriodWorkDays[i] !== firstWeek) {
                     //adds the amount of days worked if scheduled
                     totalPayPeriodWorkDays[i] += 1;
@@ -271,19 +271,7 @@ for (var i = 0; i < rowObject.length; i++) {
             } else day1 = " ";
         } else day1 = " ";
         
-                if (rowObject[i].SundayOff === 'N') {
-            if (Math.random() * 100 < 76) {
-                if (totalPayPeriodWorkDays[i] !== firstWeek) {
-                    //adds the amount of days worked if scheduled
-                    totalPayPeriodWorkDays[i] += 1;
-                    day1 = rowObject[i].SundayStartTime;
-                    total1 += 1;
-                    
-                } else day1 = " ";
-            } else day1 = " ";
-        } else day1 = " ";
-        
-        if(totalPayPeriodWorkDays[i] !== firstWeek && total1 < 50 && total2 < 60 && total3 < 60 && total4 < 60 && total5 < 60 && total6 < 60 && total7 < 60){
+        if(totalPayPeriodWorkDays[i] !== firstWeek){
            totalPayPeriodWorkDays[i] = 0; 
            day1 = " ";
            day2 = " ";
@@ -300,7 +288,7 @@ for (var i = 0; i < rowObject.length; i++) {
            total6 = 0;
            total7 = 0;
         }
-    } while (totalPayPeriodWorkDays[i] !== firstWeek && total1 < 50 && total2 < 60 && total3 < 60 && total4 < 60 && total5 < 60 && total6 < 60 && total7 < 60);
+    } while (totalPayPeriodWorkDays[i] !== firstWeek);
         console.log(rowObject[i].Name, "First Week: ", totalPayPeriodWorkDays[i])
     totalPayPeriodWorkDays[i] = 0; 
     total1 = 0;
@@ -379,7 +367,7 @@ for (var i = 0; i < rowObject.length; i++) {
             } else day13 = " ";
         } else day13 = " ";
                 if (rowObject[i].SundayOff === 'N') {
-            if (Math.random() * 100 < 51) {
+            if (Math.random() * 100 < 99) {
                 if (totalPayPeriodWorkDays[i] !== secondWeek) {
                     //adds the amount of days worked if scheduled
                     totalPayPeriodWorkDays[i] += 1;
@@ -390,19 +378,7 @@ for (var i = 0; i < rowObject.length; i++) {
             } else day8 = " ";
         } else day8 = " ";
         
-        if (rowObject[i].SundayOff === 'N') {
-            if (Math.random() * 100 < 76) {
-                if (totalPayPeriodWorkDays[i] !== firstWeek) {
-                    //adds the amount of days worked if scheduled
-                    totalPayPeriodWorkDays[i] += 1;
-                    day1 = rowObject[i].SundayStartTime;
-                    total1 += 1;
-                    
-                } else day1 = " ";
-            } else day1 = " ";
-        } else day1 = " ";
-        
-        if(totalPayPeriodWorkDays[i] !== secondWeek && total1 < 50 && total2 < 60 && total3 < 60 && total4 < 60 && total5 < 60 && total6 < 60 && total7 < 60){
+        if(totalPayPeriodWorkDays[i] !== secondWeek){
            totalPayPeriodWorkDays[i] = 0; 
            day8 = " ";
            day9 = " ";
@@ -419,7 +395,7 @@ for (var i = 0; i < rowObject.length; i++) {
            total6 = 0;
            total7 = 0;
         }
-    } while (totalPayPeriodWorkDays[i] !== secondWeek && total1 < 50 && total2 < 60 && total3 < 60 && total4 < 60 && total5 < 60 && total6 < 60 && total7 < 60);
+    } while (totalPayPeriodWorkDays[i] !== secondWeek);
     console.log(rowObject[i].Name, "Second Week: ", totalPayPeriodWorkDays[i]);
     
     
